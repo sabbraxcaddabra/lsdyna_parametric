@@ -1,0 +1,231 @@
+$# LS-DYNA Keyword file created by LS-PrePost(R) V4.10.11-27Mar2024
+$# Created on Aug-18-2025 (11:06:56)
+*KEYWORD
+*TITLE
+$#                                                                         title
+LS-DYNA keyword deck by LS-PrePost
+*PARAMETER
+$#   prmr1      val1     prmr2      val2     prmr3      val3     prmr4      val4
+R d       {{ d }}                                                                  
+R del_k   {{ del_k }}                                                                  
+R gamma   {{ gamma }}                                                                  
+R delta   {{ delta }}                                                                  
+R h       {{ h }}                                                                  
+R D_pl    {{ D_pl }}                                                                  
+R R1_c    {{ R1_c }}                                                                   
+R R2_c    {{ R2_c }}                                                                   
+R F       {{ F }}                                                                   
+R y0_k    {{ y0_k }}                                                                   
+R H_pl    {{ H_pl }}
+R MSX     1                                                                     
+R MSY     1                                                                     
+*PARAMETER_EXPRESSION
+$#    prmr                                                            expression
+R y0_vv   y0_k+del_k
+R r_k     d/2 + del_k
+R y0_pl   y0_vv+h+F
+R y1_pl   y0_vv+h+F+H_pl
+R half    d/2
+R Rbase_l D_lens/2
+R x_delta half-delta/(cos(gamma*pi/180))
+R r_gamma (90-gamma)*pi/180
+R y1_vv   y0_vv+h
+R o1      y0_vv
+R b1      y1_vv-(tan(r_gamma))*half
+R o2      b1+R1_c*sqrt((tan(r_gamma)**2)+1)
+R b2      y1_vv-(tan(r_gamma))*x_delta
+R o3      b2+R2_c*sqrt((tan(r_gamma)**2)+1)
+R y1_kas  ((tan(r_gamma)**2)*o2+b1)/(tan(r_gamma)**2+1)
+R x1_kas  (tan(r_gamma)*(o2-b1))/(tan(r_gamma)**2+1)
+R y2_kas  ((tan(r_gamma)**2)*o3+b2)/(tan(r_gamma)**2+1)
+R x2_kas  (tan(r_gamma)*(o3-b2))/(tan(r_gamma)**2+1)
+I nx      int(nint(D_pl/MSX))
+I ny      int(nint(y1_pl/MSY))
+R y_det   y0_vv + 0.25
+*CONTROL_EXPLOSIVE_SHADOW
+*CONTROL_TERMINATION
+$#  endtim    endcyc     dtmin    endeng    endmas     nosol
+     450.0         0       0.0       0.01.000000E8         0
+*CONTROL_TIMESTEP
+$#  dtinit    tssfac      isdo    tslimt     dt2ms      lctm     erode     ms1st
+       0.0       0.5         0       0.0       0.0         0         0         0
+$#  dt2msf   dt2mslc     imscl    unused    unused     rmscl     emscl      ihdo
+       0.0         0         0                           0.0       0.0         0
+*DATABASE_TRHIST
+$#      dt    binary      lcur     ioopt
+      0.25         1         0         1
+*DATABASE_BINARY_D3PLOT
+$#      dt      lcdt      beam     npltc    psetid
+       5.0         0         0         0         0
+$#   ioopt      rate    cutoff    window      type      pset
+         0       0.0       0.0       0.0         0         0
+*DATABASE_TRACER
+$#    time     track         x         y         z    ammgid       nid    radius
+       0.0         0       0.0&y0_pl           0.0         3         0       0.0
+*MAT_VACUUM_TITLE
+vacuum
+$#     mid       rho
+         11.0000E-11
+*MAT_JOHNSON_COOK_TITLE
+CU-OFHC
+$#     mid        ro         g         e        pr       dtf        vp    rateop
+        11      8.96      46.0     123.3 0.3406467       0.0       0.0       0.0
+$#       a         b         n         c         m        tm        tr      epso
+      0.09     0.292      0.31     0.025      1.09    1356.0     293.01.00000E-6
+$#      cp        pc     spall        it        d1        d2        d3        d4
+3.83000E-4       0.0       2.0       0.0       0.0       0.0       0.0       0.0
+$#      d5c2/p/xnp/d      erod     efmin    numint         k      eps1
+       0.0       0.0       0.01.00000E-6       0.0       0.0       0.0
+*MAT_HIGH_EXPLOSIVE_BURN_TITLE
+vv
+$#     mid        ro         d       pcj      beta         k         g      sigy
+        22     1.891      9.11      42.0       0.0       0.0       0.0       0.0
+*MAT_ELASTIC_PLASTIC_HYDRO_TITLE
+pmma
+$#     mid        ro         g      sigy        eh        pc        fs     charl
+        33     1.186       2.3      0.05       0.0       0.0       0.0       0.0
+$#    eps1      eps2      eps3      eps4      eps5      eps6      eps7      eps8
+       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0
+$#    eps9     eps10     eps11     eps12     eps13     eps14     eps15     eps16
+       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0
+$#     es1       es2       es3       es4       es5       es6       es7       es8
+       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0
+$#     es9      es10      es11      es12      es13      es14      es15      es16
+       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0
+*MAT_JOHNSON_COOK_TITLE
+STEEL-4340
+$#     mid        ro         g         e        pr       dtf        vp    rateop
+        44      7.85      81.8     210.0     0.285       0.0       0.0       0.0
+$#       a         b         n         c         m        tm        tr      epso
+     0.792      0.51      0.26     0.014      1.03    1793.9     293.01.00000E-6
+$#      cp        pc     spall        it        d1        d2        d3        d4
+4.77000E-4       0.0       2.0       0.0       0.0       0.0       0.0       0.0
+$#      d5c2/p/xnp/d      erod     efmin    numint         k      eps1
+       0.0       0.0       0.01.00000E-6       0.0       0.0       0.0
+*INITIAL_DETONATION
+$#     pid         x         y         z        lt         -    mmgset
+         0       0.0&y_det           0.0       0.0                   0
+*ALE_STRUCTURED_MESH
+$#   mshid      dpid      nbid      ebid    unused    unused    unused    tdeath
+         1      2001         0         0                              1.00000E16
+$#   cpidx     cpidy     cpidz      nid0     lcsid
+         2         1         0         0         0
+*ALE_STRUCTURED_MESH_CONTROL_POINTS
+$#    cpid    unused     icase       sfo    unused      offo
+         1                   0       1.0                 0.0
+$#                 n                   x            ratio/xl
+                   1                 0.0                 0.0
+&ny                 &y1_pl                               0.0
+*ALE_STRUCTURED_MESH_CONTROL_POINTS
+$#    cpid    unused     icase       sfo    unused      offo
+         2                   0       1.0                 0.0
+$#                 n                   x            ratio/xl
+                   1                 0.0                 0.0
+&nx                 &d_pl                                0.0
+*ALE_STRUCTURED_MULTI-MATERIAL_GROUP_AXISYM
+$#  ammgnm       mid     eosid    unused    unused    unused    unused      pref
+vac                1         0                                               0.0
+$#  ammgnm       mid     eosid    unused    unused    unused    unused      pref
+he                22        22                                               0.0
+$#  ammgnm       mid     eosid    unused    unused    unused    unused      pref
+liner             11        11                                               0.0
+$#  ammgnm       mid     eosid    unused    unused    unused    unused      pref
+plate             44        44                                               0.0
+$#  ammgnm       mid     eosid    unused    unused    unused    unused      pref
+lense             33        33                                               0.0
+$#  ammgnm       mid     eosid    unused    unused    unused    unused      pref
+case              44        44                                               0.0
+*ALE_STRUCTURED_MESH_VOLUME_FILLING
+$#   mshid    unused    ammgto    unused   nsample    unused   unused-       vid
+         1          vac                          3                             0
+$#    geom    in/out        e1        e2        e3        e4        e5
+ALL                0       0.0       0.0       0.0       0.0       0.0
+*ALE_STRUCTURED_MESH_VOLUME_FILLING
+$#   mshid    unused    ammgto    unused   nsample    unused   unused-       vid
+         1          case                         3                             0
+$#    geom    in/out      nid1      nid2    radii1    radii2        e5
+CYLINDER           0        14        15&r_k      &r_k            0.0
+*ALE_STRUCTURED_MESH_VOLUME_FILLING
+$#   mshid    unused    ammgto    unused   nsample    unused   unused-       vid
+         1          he                           3                             0
+$#    geom    in/out      nid1      nid2    radii1    radii2        e5
+CYLINDER           0         1         2&half     &half            0.0
+*ALE_STRUCTURED_MESH_VOLUME_FILLING
+$#   mshid    unused    ammgto    unused   nsample    unused   unused-       vid
+         1          liner                        3                             0
+$#    geom    in/out      nid1      nid2    radii1    radii2        e5
+CYLINDER           0         6         7&x1_kas   &half            0.0
+*ALE_STRUCTURED_MESH_VOLUME_FILLING
+$#   mshid    unused    ammgto    unused   nsample    unused   unused-       vid
+         1          liner                        3                             0
+$#    geom    in/out       nid    radiix    radiiy    radiiz     lcsid
+ELLIPSOID          0         8&r1_c     &r1_c            0.0         0
+*ALE_STRUCTURED_MESH_VOLUME_FILLING
+$#   mshid    unused    ammgto    unused   nsample    unused   unused-       vid
+         1          vac                          3                             0
+$#    geom    in/out      nid1      nid2    radii1    radii2        e5
+CYLINDER           0         9        10&x2_kas   &x_delta         0.0
+*ALE_STRUCTURED_MESH_VOLUME_FILLING
+$#   mshid    unused    ammgto    unused   nsample    unused   unused-       vid
+         1          vac                          4                             0
+$#    geom    in/out       nid    radiix    radiiy    radiiz     lcsid
+ELLIPSOID          0        11&r2_c     &r2_c            0.0         0
+*ALE_STRUCTURED_MESH_VOLUME_FILLING
+$#   mshid    unused    ammgto    unused   nsample    unused   unused-       vid
+         1          plate                        3                             0
+$#    geom    in/out      nid1      nid2    radii1    radii2        e5
+CYLINDER           0        12        13      35.0      35.0       0.0
+*ALE_STRUCTURED_MESH_REFINE
+$#   mshid      ifx,      ify,      ifz,
+         1         4         4         1
+*EOS_GRUNEISEN_TITLE
+CU-OFHC
+$#   eosid         c        s1        s2        s3    gamma0         a        e0
+        11      3.94     1.489       0.0       0.0      2.02       0.0       0.0
+$#      v0    unused      lcid
+       0.0                   0
+*EOS_JWL_TITLE
+vv/hmx
+$#   eosid         a         b        r1        r2      omeg        e0        vo
+        22     778.3     7.071       4.2       1.0       0.3      10.5       0.0
+*EOS_GRUNEISEN_TITLE
+pmma
+$#   eosid         c        s1        s2        s3    gamma0         a        e0
+        33     2.598     1.516       0.0       0.0      0.97       0.0       0.0
+$#      v0    unused      lcid
+       0.0                   0
+*EOS_GRUNEISEN_TITLE
+STEEL-4340
+$#   eosid         c        s1        s2        s3    gamma0         a        e0
+        44     4.596      1.49       0.0       0.0      2.17       0.0       0.0
+$#      v0    unused      lcid
+       0.0                   0
+*NODE
+$HE start here
+$#   nid               x               y               z      tc      rc
+       1             0.0&y0_vv                       0.0       0       0
+$HE ends here
+       2             0.0&y1_vv                       0.0       0       0
+$Center of lense sphere
+       5             0.0&o1                          0.0       0       0
+$Start of liner
+       6             0.0&y1_kas                      0.0       0       0
+$End of liner
+       7             0.0&y1_vv                       0.0       0       0
+$Center of liner sphere
+       8             0.0&o2                          0.0       0       0
+$Start of inner liner
+       9             0.0&y2_kas                      0.0       0       0
+$End of inner liner
+      10             0.0&y1_vv                       0.0       0       0
+$Center of inner liner sphere
+      11             0.0&o3                          0.0       0       0
+$Start of plate
+      12             0.0&y0_pl                       0.0       0       0
+$End of plate
+      13             0.0&y1_pl                       0.0       0       0
+$Start of case
+      14             0.0&y0_k                        0.0       0       0
+$End of case
+      15             0.0&y1_vv                       0.0       0       0
+*END

@@ -1,0 +1,76 @@
+[meta]
+template_file = "input.template"
+
+[template_params]
+D_pl = 50.0
+F = 100.0
+H_pl = 300.0
+R1_c = 1.0
+R2_c = 1.0
+Rtop_l = 1.0
+d = 38.0
+del_k = 0.1
+delta = 1.5
+gamma = 30.0
+h = 50.0
+y0_k = 15.0
+
+[variables]
+
+
+[variables.D_pl]
+enabled = false
+mode = "range"
+step = 1.0
+
+[variables.F]
+enabled = false
+mode = "range"
+step = 1.0
+
+[variables.H_pl]
+enabled = false
+mode = "range"
+step = 1.0
+
+[variables.R1_c]
+enabled = false
+mode = "range"
+step = 1.0
+
+[variables.R2_c]
+enabled = false
+mode = "range"
+step = 1.0
+
+
+[variables.d]
+enabled = false
+mode = "range"
+step = 1.0
+
+[variables.del_k]
+enabled = false
+mode = "range"
+step = 1.0
+
+[variables.delta]
+enabled = false
+mode = "range"
+step = 1.0
+
+[variables.gamma]
+enabled = false
+mode = "range"
+step = 1.0
+
+[variables.h]
+enabled = false
+mode = "range"
+step = 1.0
+
+
+[variables.y0_k]
+enabled = false
+mode = "range"
+step = 1.0

@@ -1,0 +1,15 @@
+{
+  "params": {
+    "D_pl": { "name": "Диаметр преграды, мм", "description": "Нужно, чтобы вычислить размер вычислительной области" },
+    "F": { "name": "Фокусное расстояние, мм", "description": "" },
+    "H_pl": { "name": "Толщина преграды, мм", "description": "" },
+    "R1_c": { "name": "R1_c", "description": "" },
+    "R2_c": { "name": "R2_c", "description": "" },
+    "d": { "name": "Диаметр заряда, мм", "description": "" },
+    "del_k": { "name": "Толщина корпуса, мм", "description": "" },
+    "delta": { "name": "Толщина облицовки, мм", "description": "" },
+    "gamma": { "name": "Угол раствора облицовки, град", "description": "" },
+    "h": { "name": "Длина заряда, мм", "description": "" },
+    "y0_k": { "name": "Начало корпуса от границы расчетной области, мм", "description": "" }
+  }
+}
