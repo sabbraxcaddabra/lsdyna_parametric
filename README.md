@@ -4,7 +4,10 @@
 
 ## Запуск (из корня текущего репозитория)
 
-`uv run python lsdyna_parametric/main.py`
+```
+uv sync или pip install -r requirements.txt
+uv run python -m main или python -m main
+```
 
 ## Ожидаемая структура шаблона
 
